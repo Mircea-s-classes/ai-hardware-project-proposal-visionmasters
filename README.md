@@ -1,44 +1,150 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/v3c0XywZ)
-# AI Hardware Project Template
-ECE 4332 / ECE 6332 — AI Hardware  
-Fall 2025
+# Real-Time Facial Expression Recognition on Edge AI Hardware
 
-## 🧭 Overview
-This repository provides a structured template for your team project in the AI Hardware class.  
-Each team will **clone this template** to start their own project repository.
+**Team:** VisionMasters  
+**Course:** ECE 4332 / ECE 6332 — AI Hardware Design and Implementation  
+**Platform:** Raspberry Pi 4 + Google Coral USB Accelerator (Edge TPU)
 
-## 🗂 Folder Structure
-- `docs/` – project proposal and documentation  
-- `presentations/` – midterm and final presentation slides  
-- `report/` – final written report (IEEE LaTeX and DOCX versions included)  
-- `src/` – source code for software, hardware, and experiments  
-- `data/` – datasets or pointers to data used
+## 🎯 Project Overview
 
-## 🧑‍🤝‍🧑 Team Setup
-Each team should have **2–4 members (3 preferred)**.  
-List all team members in `docs/Project_Proposal.md`.
+This project implements real-time facial expression recognition on edge AI hardware, demonstrating efficient deployment of deep learning models on resource-constrained devices. The system recognizes 7 emotions (Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral) and displays corresponding Clash Royale emotes.
 
-## 📋 Required Deliverables
-1. **Project Proposal** — due Nov. 5, 2025, 11:59 PM  
-2. **Midterm Presentation** — Nov. 19,2025, 11:59 PM  
-3. **Final Presentation and Report** — Dec. 17, 11:59 PM
+### Key Objectives
+- **Real-Time Performance**: 30+ FPS with <20ms inference latency
+- **Power Efficiency**: <5W total system power consumption
+- **Accuracy**: 85%+ accuracy on FER2013 dataset
+- **Edge Optimization**: INT8 quantization for Edge TPU deployment
 
-## 🚀 How to Use This Template
-1. Click **“Use this template”** on GitHub.  
-2. Name your repo `ai-hardware-teamXX` (replace XX with your team name or number).  
-3. Clone it locally:
-   ```bash
-   git clone https://github.com/YOUR-ORG/ai-hardware-teamXX.git
-   ```
-4. Add your work in the appropriate folders.
+## 📁 Project Structure
 
-## 🧾 Submissions
-- Commit and push all deliverables before each deadline.
-- Tag final submissions with:
-   ```bash
-   git tag v1.0-final
-   git push origin v1.0-final
-   ```
+```
+.
+├── src/
+│   ├── model/           # Model training and conversion scripts
+│   ├── hardware/        # Hardware integration and inference
+│   └── utils/           # Utility functions
+├── data/
+│   ├── fer2013/         # FER2013 dataset
+│   └── emotes/          # Clash Royale emote images and sounds
+├── models/              # Trained models (FP32, INT8, TFLite, EdgeTPU)
+├── benchmarks/          # Performance testing scripts
+├── results/             # Performance data and charts
+├── docs/                # Documentation and diagrams
+├── presentations/       # Presentation slides
+└── report/              # Final report
+```
 
-## 📜 License
-This project is released under the MIT License.
+## 🚀 Getting Started
+
+### Phase 1: Model Development (Current - No Hardware Required)
+
+1. **Setup Environment**
+```bash
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+2. **Download FER2013 Dataset**
+```bash
+# Option 1: Using Kaggle API (requires Kaggle account and API key)
+kaggle datasets download -d msambare/fer2013
+unzip fer2013.zip -d data/fer2013/
+
+# Option 2: Manual download from Kaggle
+# https://www.kaggle.com/datasets/msambare/fer2013
+```
+
+3. **Train Baseline Model**
+```bash
+python src/model/train_baseline.py
+```
+
+4. **Evaluate Model**
+```bash
+python src/model/evaluate.py --model models/baseline_fp32.h5
+```
+
+### Phase 2: Model Optimization (Week 3)
+
+5. **Quantize Model to INT8**
+```bash
+python src/model/quantize_model.py
+```
+
+6. **Convert to TFLite and Edge TPU**
+```bash
+python src/model/convert_to_edgetpu.py
+```
+
+### Phase 3: Hardware Integration (Week 4-5)
+
+7. **Deploy on Raspberry Pi + Coral**
+```bash
+# On Raspberry Pi
+python src/hardware/inference_demo.py
+```
+
+## 📊 Current Progress
+
+- [x] Project proposal
+- [ ] FER2013 dataset preparation
+- [ ] Baseline MobileNetV2 model training
+- [ ] Face detection pipeline (MediaPipe)
+- [ ] Model quantization (INT8)
+- [ ] TFLite conversion
+- [ ] Edge TPU deployment
+- [ ] Real-time demo application
+- [ ] Benchmarking and optimization
+
+## 🧪 Testing
+
+```bash
+# Run tests
+pytest tests/
+
+# Run benchmarks
+python benchmarks/benchmark_model.py
+```
+
+## 📈 Performance Targets
+
+| Metric | Target | Current |
+|--------|--------|---------|
+| Accuracy | >85% | TBD |
+| FPS | >30 | TBD |
+| Latency | <20ms | TBD |
+| Power | <5W | TBD |
+| Model Size | <10MB | TBD |
+
+## 🎮 Emotion to Emote Mapping
+
+| Emotion | Clash Royale Emote |
+|---------|-------------------|
+| Happy | 😂 Laughing King |
+| Sad | 😢 Crying Face |
+| Angry | 😠 Angry Face |
+| Surprise | 😲 Shocked Face |
+| Fear | 😱 Screaming Face |
+| Disgust | 🤢 Sick Face |
+| Neutral | 👍 Thumbs Up |
+
+## 👥 Team Members
+
+- **Allen Chen** (wmm7wr@virginia.edu) - Hardware Integration
+- **Marvin Rivera** (tkk9wg@virginia.edu) - Team Lead, Documentation
+- **Sami Kang** (ajp3cx@virginia.edu) - Model Training, Inference
+
+## 📚 References
+
+- [Google Coral Edge TPU](https://coral.ai/products/accelerator/)
+- [FER2013 Dataset](https://www.kaggle.com/datasets/msambare/fer2013)
+- [MobileNetV2 Paper](https://arxiv.org/abs/1801.04381)
+- [TensorFlow Lite](https://www.tensorflow.org/lite)
+- [MediaPipe Face Detection](https://google.github.io/mediapipe/solutions/face_detection.html)
+
+## 📝 License
+
+This project is for educational purposes as part of ECE 4332/6332 at the University of Virginia.
