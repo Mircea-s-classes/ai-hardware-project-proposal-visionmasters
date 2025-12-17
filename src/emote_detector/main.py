@@ -77,7 +77,6 @@ class EmoteDetector:
             "Yawning": "yawning.png",
             "Crying": "crying.png",
             "Taunting": "taunting.png",
-            "Mean Laugh": "mean_laugh.png",
             "Neutral": "neutral.png"
         }
         
@@ -103,8 +102,7 @@ class EmoteDetector:
             "Laughing": "laughing.mp3",
             "Yawning": "yawning.mp3",
             "Crying": "crying.mp3",
-            "Taunting": "taunting.mp3",
-            "Mean Laugh": "mean_laugh.mp3"
+            "Taunting": "taunting.mp3"
         }
         
         for pose_name, filename in pose_sounds.items():

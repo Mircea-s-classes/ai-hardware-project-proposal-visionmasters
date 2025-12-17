@@ -44,7 +44,6 @@ class PoseDataCollector:
             1: "Yawning",     # Hand(s) covering mouth
             2: "Crying",      # Hands covering face/eyes
             3: "Taunting",    # Fists near face, taunting pose
-            4: "Mean Laugh",  # Chin on fist, smug expression
         }
         
         # Collected data
@@ -200,7 +199,7 @@ class PoseDataCollector:
                        (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 1)
         
         # Instructions at bottom
-        cv2.putText(frame, "0-4: Select pose | a: Auto-collect | s: Save | t: Train | q: Quit", 
+        cv2.putText(frame, "0-3: Select pose | a: Auto-collect | s: Save | t: Train | q: Quit", 
                    (10, h - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
         
         # Visual indicator when collecting

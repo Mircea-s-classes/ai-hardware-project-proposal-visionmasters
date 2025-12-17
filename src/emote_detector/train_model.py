@@ -41,8 +41,7 @@ class PoseModelTrainer:
             0: "Laughing",
             1: "Yawning",
             2: "Crying",
-            3: "Taunting",
-            4: "Mean Laugh"
+            3: "Taunting"
         }
         
         self.model = None
